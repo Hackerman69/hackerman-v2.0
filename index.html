@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Hackerman</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    @viewport {
+      max-zoom: 100%;
+      min-width: 100%;
+    }
+    html {
+      background-color: black;
+      color: white;
+    }
+    
+    img[src = "kanál.png"] {
+      height: 25vh;
+      width: 25vw;
+    }
+
+    img[src = "kés.png"] {
+      height: 25vh;
+      width: 25vw;
+    }
+
+    img[src = "villa.png"] {
+      height: 25vh;
+      width: 25vw;
+    }
+    
+    #game {
+      display: grid;
+      }
+
+    #g00 {
+      grid-column-start: 1;
+      grid-column-end: 1;
+      grid-row-start: 1;
+      grid-row-end: 1;
+    }
+    #g01 {
+      grid-column-start: 1;
+      grid-column-end: 1;
+      grid-row-start: 2;
+      grid-row-end: 2;
+    }
+    #g02 {
+      grid-column-start: 1;
+      grid-column-end: 1;
+      grid-row-start: 3;
+      grid-row-end: 3;
+    }
+    #g10 {
+      grid-column-start: 2;
+      grid-column-end: 2;
+      grid-row-start: 1;
+      grid-row-end: 1;
+    }
+    #g11 {
+      grid-column-start: 2;
+      grid-column-end: 2;
+      grid-row-start: 2;
+      grid-row-end: 2;
+    }
+    #g12 {
+      grid-column-start: 2;
+      grid-column-end: 2;
+      grid-row-start: 3;
+      grid-row-end: 3;
+    }
+    #g20 {
+      grid-column-start: 3;
+      grid-column-end: 3;
+      grid-row-start: 1;
+      grid-row-end: 1;
+    }
+    #g21 {
+      grid-column-start: 3;
+      grid-column-end: 3;
+      grid-row-start: 2;
+      grid-row-end: 2;
+    }
+    #g22 {
+      grid-column-start: 3;
+      grid-column-end: 3;
+      grid-row-start: 3;
+      grid-row-end: 3;
+    }
+
+  </style>
+
+</head>
+<body>
+  <div id = "game">
+    <div id = "g00"></div>
+    <div id = "g10"></div>
+    <div id = "g20"></div>
+    <div id = "g01"></div>
+    <div id = "g11"></div>
+    <div id = "g21"></div>
+    <div id = "g02"></div>
+    <div id = "g12"></div>
+    <div id = "g22"></div>
+  </div>  
+  <script>
+    var right = 0
+    var wrong = 0
+
+    var kanál = '<img class = "kanál" src="kanál.png" onclick="kanál()">'
+    var kés = '<img class = "késvilla" src="kés.png" onclick="késvilla()">'
+    var villa = '<img class = "késvilla" src="villa.png" onclick="késvilla()">'
+    var game = document.getElementById("game")
+
+    var firsttime = []
+    for(let i = 0; i < 3; i++) {
+      firsttime.push(villa)
+    }
+    for(let i = 0; i < 3; i++) {
+      firsttime.push(kanál)
+    }
+    for(let i = 0; i < 3; i++) {
+      firsttime.push(kés)
+    }
+
+    function shuffleArray(array) {
+      for (var i = array.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+      }
+    }
+    shuffleArray(firsttime)
+    var matrix =[]
+    for(let i = 0; i < 3; i++) {
+      matrix.push([])
+    }
+    
+    while(firsttime.length) {
+      for(let i = 0; i < 3; i++) {
+        for(let k = 0; k < 3; k++) {
+          let index = Math.floor(Math.random * firsttime.length)
+          let element = firsttime.splice(index, 1)
+          console.log(element)
+          matrix[i][k] = element
+          document.getElementById("g"+String(i)+String(k)).innerHTML = matrix[i][k]
+        }
+        
+      }
+    }
+     
+
+    /*function shuffleMatrix() {
+      do {
+      var i = Math.floor(Math.random() * 3)
+      var k = Math.floor(Math.random() * 3)
+      var random1 = Math.floor(Math.random() * 3)
+      var random2 = Math.floor(Math.random() * 3)
+      }
+      while(matrix[i][k] == matrix[random1][random2])
+      let temp = matrix[random1][random2]
+      matrix[random1][random2] = matrix[i][k]
+      matrix[i][k] = temp
+      matrix[random1][random2].style.top = random1 * 10 + "vh"
+      matrix[random1][random2].style.left = random2 * 10 + "vw"
+      matrix[i][k].style.top = i * 10 + "vh"
+      matrix[i][k].style.top = k * 10 + "vw"
+    }*/
+    
+    var kanalak = document.getElementsByClassName("kanál")
+    kanalak.onclick = function() {
+      right++
+    }
+
+    var késvilla = document.getElementsByClassName("késvilla")
+    késvilla.onclick = function() {
+      wrong++
+    }
+    
+    var check = setInterval(function() {
+      if(right == 3) {
+        game.innerHTML = "kész"
+      }
+      if(wrong == 1) {
+        game.innerHTML = "balfasz"
+      }
+    }, 100)
+    var game = setInterval(function () {
+      do {
+      var i = Math.floor(Math.random() * 3)
+      var k = Math.floor(Math.random() * 3)
+      var random1 = Math.floor(Math.random() * 3)
+      var random2 = Math.floor(Math.random() * 3)
+      }
+      while(matrix[i][k] == matrix[random1][random2])
+      let temp = matrix[random1][random2]
+      matrix[random1][random2] = matrix[i][k]
+      matrix[i][k] = temp
+      document.getElementById("g"+String(i)+String(k)).innerHTML = matrix[i][k]
+      document.getElementById("g"+String(random1)+String(random2)).innerHTML = matrix[random1][random2]
+    }, 500)
+
+  </script>
+</body>
+<footer>
+  <script>function kanál() {
+    right++
+  }
+
+  function késvilla() {
+    wrong++
+  }
+</script>
+</footer>
+</html>
