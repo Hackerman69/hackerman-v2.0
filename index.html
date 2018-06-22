@@ -108,9 +108,9 @@
     var right = 0
     var wrong = 0
 
-    var kanál = '<img class = "kanál" src="kanál.png" onclick="kanál()">'
-    var kés = '<img class = "késvilla" src="kés.png" onclick="késvilla()">'
-    var villa = '<img class = "késvilla" src="villa.png" onclick="késvilla()">'
+    var kanál = '<img class = "kanál" src="kanál.png">'
+    var kés = '<img class = "késvilla" src="kés.png">'
+    var villa = '<img class = "késvilla" src="villa.png">'
     var game = document.getElementById("game")
 
     var firsttime = []
@@ -143,7 +143,6 @@
         for(let k = 0; k < 3; k++) {
           let index = Math.floor(Math.random * firsttime.length)
           let element = firsttime.splice(index, 1)
-          console.log(element)
           matrix[i][k] = element
           document.getElementById("g"+String(i)+String(k)).innerHTML = matrix[i][k]
         }
@@ -171,22 +170,17 @@
     
     var kanalak = document.getElementsByClassName("kanál")
     kanalak.onclick = function() {
+      console.log("gratula")
       right++
     }
 
     var késvilla = document.getElementsByClassName("késvilla")
     késvilla.onclick = function() {
+      console.log("balfasz")
       wrong++
     }
     
-    var check = setInterval(function() {
-      if(right == 3) {
-        game.innerHTML = "kész"
-      }
-      if(wrong == 1) {
-        game.innerHTML = "balfasz"
-      }
-    }, 100)
+
     var game = setInterval(function () {
       do {
       var i = Math.floor(Math.random() * 3)
@@ -200,18 +194,26 @@
       matrix[i][k] = temp
       document.getElementById("g"+String(i)+String(k)).innerHTML = matrix[i][k]
       document.getElementById("g"+String(random1)+String(random2)).innerHTML = matrix[random1][random2]
-    }, 500)
+      for(let j = 0; j < 3; j++) {
+        for(let l = 0; l < 3; l++) {
+          if(matrix[j][l][0] == kanál) {
+            document.getElementById("g"+String(j)+String(l)).onclick = function() {
+              console.log("gratula")
+              right++
+            }
+          }
+          else {
+            document.getElementById("g"+String(j)+String(l)).onclick = function() {
+              console.log("balfasz")
+              wrong++
+            }
+          }
+        }
+      }
+    }, 1000)
 
   </script>
 </body>
 <footer>
-  <script>function kanál() {
-    right++
-  }
-
-  function késvilla() {
-    wrong++
-  }
-</script>
 </footer>
 </html>
