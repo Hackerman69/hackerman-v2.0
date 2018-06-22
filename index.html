@@ -181,7 +181,15 @@
     }
     
 
-    var game = setInterval(function () {
+    var gameinterval = setInterval(function () {
+      if(right == 3) {
+        game.innerHTML = "kapd be"
+        clearInterval(gameinterval)
+      }
+      if(wrong == 1) {
+        game.innerHTML = "balfasz"
+        clearInterval(gameinterval)
+      }
       do {
       var i = Math.floor(Math.random() * 3)
       var k = Math.floor(Math.random() * 3)
@@ -200,15 +208,25 @@
             document.getElementById("g"+String(j)+String(l)).onclick = function() {
               console.log("gratula")
               right++
+              document.getElementById("g"+String(j)+String(l)).innerHTML = ""
             }
           }
           else {
             document.getElementById("g"+String(j)+String(l)).onclick = function() {
               console.log("balfasz")
               wrong++
+              document.getElementById("g"+String(j)+String(l)).innerHTML = ""
             }
           }
         }
+      }
+      if(right == 3) {
+        game.innerHTML = "kapd be"
+        clearInterval(gameinterval)
+      }
+      if(wrong == 1) {
+        game.innerHTML = "balfasz"
+        clearInterval(gameinterval)
       }
     }, 1000)
 
