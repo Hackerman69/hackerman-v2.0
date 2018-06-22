@@ -208,7 +208,8 @@
             document.getElementById("g"+String(j)+String(l)).onclick = function() {
               console.log("gratula")
               right++
-              document.getElementById("g"+String(j)+String(l)).innerHTML = ""
+              matrix[j][l] = villa
+              document.getElementById("g"+String(j)+String(l)).innerHTML = matrix[j][l]
             }
           }
           else {
